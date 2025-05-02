@@ -1,12 +1,19 @@
 "use strict";
+require("dotenv").config();
+
 const express = require("express");
 const session = require("express-session");
 const expressHandlebars = require("express-handlebars");
 const { createPagination } = require("express-handlebars-paginate");
 const { createStarList } = require("./controller/handlebarsHelper");
 const { createClient } = require("redis");
-const redisStore = require("connect-redis").default;
+const { RedisStore } = require("connect-redis");
 const Cart = require("./controller/cart");
+
+const redisClient = createClient({
+  url: process.env.REDIS_URL,
+});
+redisClient.connect().catch(console.error);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,7 +41,8 @@ app.set("view engine", "hbs");
 // Session config
 app.use(
   session({
-    secret: "secret",
+    secret: process.env.SESSION_SECRET,
+    store: new RedisStore({ client: redisClient }),
     resave: false,
     saveUninitialized: true,
     cookie: {

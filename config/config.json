@@ -1,4 +1,5 @@
 {
+  "use_env_variable": "DATABASE_URL",
   "development": {
     "username": "postgres.bdontrhcgzgljlmmyvih",
     "password": "zldqKNTCOHjEiNM1",
@@ -20,10 +21,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "postgres.bdontrhcgzgljlmmyvih",
-    "password": "zldqKNTCOHjEiNM1",
-    "database": "postgres",
-    "host": "aws-0-ap-southeast-1.pooler.supabase.com",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
